@@ -25,6 +25,8 @@ resource "helm_release" "keptn" {
   repository = "https://charts.keptn.sh"
   chart = "keptn"
   name  = "keptn"
+  namespace = "keptn"
+  create_namespace = true
 
   depends_on = [digitalocean_kubernetes_cluster.keptn]
 }
