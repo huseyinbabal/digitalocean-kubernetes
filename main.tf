@@ -30,3 +30,38 @@ resource "helm_release" "keptn" {
   namespace = "keptn"
   create_namespace = true
 }
+
+resource "helm_release" "job-executor-service" {
+  depends_on = [helm_release.keptn]
+
+  repository = "https://charts.keptn.sh"
+  chart = "https://github.com/keptn-contrib/job-executor-service/releases/download/0.3.0/job-executor-service-0.3.0.tgz"
+  name  = "job-executor-service"
+  namespace = "keptn-jes"
+  create_namespace = true
+
+  set {
+    name  = "remoteControlPlane.autoDetect.enabled"
+    value = "true"
+  }
+
+  set {
+    name  = "subscription.pubsubTopic"
+    value = "sh.keptn.event.remote-task.triggered"
+  }
+
+  set {
+    name  = "remoteControlPlane.api.token"
+    value = ""
+  }
+
+  set {
+    name  = "remoteControlPlane.api.hostname"
+    value = ""
+  }
+
+  set {
+    name  = "remoteControlPlane.api.protocol"
+    value = ""
+  }
+}
