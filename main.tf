@@ -22,11 +22,16 @@ resource "digitalocean_kubernetes_cluster" "keptn" {
 }
 
 resource "helm_release" "keptn" {
+  depends_on = [digitalocean_kubernetes_cluster.keptn]
+
   repository = "https://charts.keptn.sh"
   chart = "keptn"
   name  = "keptn"
   namespace = "keptn"
   create_namespace = true
 
-  depends_on = [digitalocean_kubernetes_cluster.keptn]
+  set {
+    name  = "features.automaticProvisioning.serviceURL"
+    value = "https://webhook.site/9f7489ea-f4d2-41be-8c98-72c0d66d952f"
+  }
 }
