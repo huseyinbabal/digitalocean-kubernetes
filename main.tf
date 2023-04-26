@@ -34,7 +34,6 @@ resource "helm_release" "keptn" {
 resource "helm_release" "job-executor-service" {
   depends_on = [helm_release.keptn]
 
-  repository = "https://charts.keptn.sh"
   chart = "https://github.com/keptn-contrib/job-executor-service/releases/download/0.3.0/job-executor-service-0.3.0.tgz"
   name  = "job-executor-service"
   namespace = "keptn-jes"
