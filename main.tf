@@ -29,9 +29,4 @@ resource "helm_release" "keptn" {
   name  = "keptn"
   namespace = "keptn"
   create_namespace = true
-
-  set {
-    name  = "features.automaticProvisioning.serviceURL"
-    value = "https://webhook.site/9f7489ea-f4d2-41be-8c98-72c0d66d952f"
-  }
 }
